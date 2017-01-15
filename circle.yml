@@ -4,19 +4,19 @@ machine:
   services:
     - docker
 
+test:
+  override:
+    - mvn test
+
 dependencies:
   override:
-    - mvn clean install -DskipTests
     - docker info
-    - docker build --rm=false -t nebrass/typical-back .
 
 deployment:
   hub:
     branch: master
     commands:
+      - mvn clean install -DskipTests
+      - docker build --rm=false -t nebrass/typical-back .
       - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
       - docker push nebrass/typical-back
-
-test:
-  override:
-    - mvn test
