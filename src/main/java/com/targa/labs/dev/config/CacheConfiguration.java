@@ -13,7 +13,6 @@ import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.cache.support.NoOpCacheManager;
-import org.springframework.cache.support.SimpleCacheManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
@@ -24,7 +23,7 @@ import javax.annotation.PreDestroy;
 
 @Configuration
 @EnableCaching
-@AutoConfigureAfter(value = { MetricsConfiguration.class, DatabaseConfiguration.class })
+@AutoConfigureAfter(value = {MetricsConfiguration.class, DatabaseConfiguration.class})
 public class CacheConfiguration {
 
     private final Logger log = LoggerFactory.getLogger(CacheConfiguration.class);
