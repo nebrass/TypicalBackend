@@ -1,11 +1,20 @@
 machine:
   java:
     version: oraclejdk8
+  services:
+    - docker
+
+dependencies:
+  override:
+    - docker info
+    - docker build --rm=false -t nebrass/typical-back .
+
 deployment:
-  dockerhub:
+  hub:
     branch: master
     commands:
-      - $DOCKER_HUB_TRIGGER
+      - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
+      - docker push nebrass/typical-back
 
 test:
   override:
