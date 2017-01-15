@@ -353,6 +353,7 @@
     </dependencies>
     <build>
         <defaultGoal>spring-boot:run</defaultGoal>
+        <finalName>${project.artifactId}</finalName>
         <pluginManagement>
             <plugins>
                 <!--
@@ -419,7 +420,7 @@
                         <resource>
                             <targetPath>/</targetPath>
                             <directory>${project.build.directory}</directory>
-                            <include>${project.build.finalName}.jar</include>
+                            <include>${project.artifactId}.jar</include>
                         </resource>
                     </resources>
                 </configuration>

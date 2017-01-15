@@ -1,0 +1,12 @@
+machine:
+  java:
+    version: oraclejdk8
+deployment:
+  dockerhub:
+    branch: master
+    commands:
+      - $DOCKER_HUB_TRIGGER
+
+test:
+  override:
+    - mvn test
