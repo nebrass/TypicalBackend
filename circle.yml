@@ -6,6 +6,7 @@ machine:
 
 dependencies:
   override:
+    - mvn clean install -DskipTests
     - docker info
     - docker build --rm=false -t nebrass/typical-back .
 
