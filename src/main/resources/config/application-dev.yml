@@ -24,8 +24,9 @@ spring:
         serialization.indent_output: true
     data:
         mongodb:
-            uri: mongodb://localhost:27017
+            uri: mongodb://nebrass.fr:27017
             database: BackEnd
+            username:
     mail:
         host: localhost
         port: 25
