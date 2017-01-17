@@ -23,5 +23,4 @@ test:
     override:
         - ./mvnw clean
         - ./mvnw test
-        - gulp test
         - ./mvnw package -Pprod -DskipTests
