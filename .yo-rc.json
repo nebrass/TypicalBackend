@@ -21,6 +21,15 @@
     "applicationType": "monolith",
     "testFrameworks": [],
     "jhiPrefix": "jhi",
-    "enableTranslation": false
+    "enableTranslation": false,
+    "appsFolders": [
+      "BackEnd"
+    ],
+    "directoryPath": "../",
+    "clusteredDbApps": [
+      "BackEnd"
+    ],
+    "monitoring": "elk",
+    "serviceDiscoveryType": "eureka"
   }
 }

@@ -1,0 +1,46 @@
+version: '2'
+services:
+    backend-app:
+        image: backend
+        external_links:
+            - backend-mongodb:mongodb
+        environment:
+            - SPRING_PROFILES_ACTIVE=prod,swagger
+            - SPRING_DATA_MONGODB_URI=mongodb://mongodb:27017
+            - SPRING_DATA_MONGODB_DATABASE=BackEnd
+            - JHIPSTER_SLEEP=10
+            - JHIPSTER_LOGGING_LOGSTASH_ENABLED=true
+            - JHIPSTER_LOGGING_LOGSTASH_HOST=jhipster-logstash
+            - JHIPSTER_METRICS_LOGS_ENABLED=true
+            - JHIPSTER_METRICS_LOGS_REPORT_FREQUENCY=60
+            - SPRING_CLOUD_CONFIG_URI=http://admin:undefined@registry:8761/config
+        ports:
+            - 8080:8080
+    backend-mongodb-node:
+        build:
+            context: src/main/docker
+            dockerfile: mongodb/MongoDB.Dockerfile
+        command: mongod --replSet rs1 --noprealloc --smallfiles
+    backend-mongodb-config:
+        image: mongo:3.2.10
+        container_name: backend-mongodb-config
+        command: mongod --noprealloc --smallfiles --configsvr --dbpath /data/db
+    backend-mongodb:
+        container_name: backend-mongodb
+        image: mongo:3.2.10
+        command: mongos --configdb backend-mongodb-config
+    
+
+    jhipster-elasticsearch:
+        extends:
+            file: jhipster-console.yml
+            service: jhipster-elasticsearch
+    jhipster-logstash:
+        extends:
+          file: jhipster-console.yml
+          service: jhipster-logstash
+    jhipster-console:
+        extends:
+            file: jhipster-console.yml
+            service: jhipster-console
+
