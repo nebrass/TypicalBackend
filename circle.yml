@@ -1,22 +1,27 @@
 machine:
-  java:
-    version: oraclejdk8
-  services:
-    - docker
-
-test:
-  override:
-    - mvn test
-
+    services:
+        - docker
+    java:
+        version: oraclejdk8
+    node:
+        version: 4.5.0
 dependencies:
-  override:
-    - docker info
-
-deployment:
-  hub:
-    branch: master
-    commands:
-      - mvn clean install -DskipTests
-      - docker build --rm=false -t nebrass/typical-back .
-      - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
-      - docker push nebrass/typical-back
+    cache_directories:
+        - node
+        - node_modules
+        - ~/.m2
+    override:
+        - npm install -g npm
+        - npm install -g bower gulp
+        - node -v
+        - npm -v
+        - bower -v
+        - gulp -v
+        - java -version
+        - npm install
+test:
+    override:
+        - ./mvnw clean
+        - ./mvnw test
+        - gulp test
+        - ./mvnw package -Pprod -DskipTests
